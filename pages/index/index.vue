@@ -17,15 +17,15 @@
 				<input class="input" v-model="form.connector" placeholder="如 _ . - @" />
 				<view class="switches">
 					<label>
-						<checkbox v-model="form.connector_left" />
+						<checkbox value="connector_left" :checked="form.connector_left" @change="onCheckboxChange($event, 'connector_left')" />
 						左
 					</label>
 					<label>
-						<checkbox v-model="form.connector_middle" />
+						<checkbox value="connector_middle" :checked="form.connector_middle" @change="onCheckboxChange($event, 'connector_middle')" />
 						中
 					</label>
 					<label>
-						<checkbox v-model="form.connector_right" />
+						<checkbox value="connector_right" :checked="form.connector_right" @change="onCheckboxChange($event, 'connector_right')" />
 						右
 					</label>
 				</view>
@@ -38,7 +38,7 @@
 
 			<view class="form-section">
 				<label>
-					<checkbox v-model="form.have_year" />
+					<checkbox value="have_year" :checked="form.have_year" @change="onCheckboxChange($event, 'have_year')" />
 					包含近几年年份
 				</label>
 				<input class="input" type="number" v-model="form.year" placeholder="近几年个数" />
@@ -46,11 +46,11 @@
 
 			<view class="form-section">
 				<label>
-					<checkbox v-model="form.number_filter" />
+					<checkbox value="number_filter" :checked="form.number_filter" @change="onCheckboxChange($event, 'number_filter')" />
 					去除纯数字
 				</label>
 				<label>
-					<checkbox v-model="form.string_filter" />
+					<checkbox value="string_filter" :checked="form.string_filter" @change="onCheckboxChange($event, 'string_filter')" />
 					去除纯字母
 				</label>
 			</view>
@@ -63,15 +63,15 @@
 
 			<view class="form-section">
 				<label>
-					<checkbox v-model="form.capitalize" />
+					<checkbox value="capitalize" :checked="form.capitalize" @change="onCheckboxChange($event, 'capitalize')" />
 					首字母大写
 				</label>
 				<label>
-					<checkbox v-model="form.lowercase" />
+					<checkbox value="lowercase" :checked="form.lowercase" @change="onCheckboxChange($event, 'lowercase')" />
 					全小写
 				</label>
 				<label>
-					<checkbox v-model="form.uppercase" />
+					<checkbox value="uppercase" :checked="form.uppercase" @change="onCheckboxChange($event, 'uppercase')" />
 					全大写
 				</label>
 			</view>
@@ -203,6 +203,9 @@ export default {
 			if (f.lowercase) result = getLower(result);
 			if (f.uppercase) result = getUpper(result);
 			this.result = getDistinctList(result);
+		},
+		onCheckboxChange(event, key) {
+			this.$set(this.form, key, event.detail.value);
 		},
 		copyToClipboard(text) {
 			uni.setClipboardData({
